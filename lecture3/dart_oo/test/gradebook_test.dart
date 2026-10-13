@@ -22,6 +22,11 @@ void main() {
       expect(grouped['中']!.single.name, '张伟');
       expect(grouped['差']!.single.name, '王芳');
     });
+
+    test('topNames 链式统计：降序且只含及格者', () {
+      expect(book.topNames(2), ['李华(92)', '张伟(78)']);
+      expect(book.topNames(5).length, 2); // 王芳不及格被 where 过滤
+    });
   });
 
   group('Student 封装（异常路径）', () {

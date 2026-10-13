@@ -1,12 +1,15 @@
-import 'gradebook.dart';
+import 'student.dart';
 
-/// 光荣榜 —— 改造前：用一层继承获得成绩册数据并扩展行为。
+/// 光荣榜能力 —— 改造后：mixin 替代继承。
 ///
-/// 缺点：这里并非真正的 is-a 关系（光荣榜不是"一种"成绩册），
-/// 只是为了复用数据与打印能力，却占掉了 Dart 唯一的继承位，
-/// 后续若要再继承其它基类就无路可走。下一步将改造为 mixin。
-class HonorRoll extends GradeBook {
-  HonorRoll(super.courseName, super.students);
+/// 改造前是 `class HonorRoll extends GradeBook`（见提交历史），
+/// 并非真正的 is-a 关系，还占掉唯一继承位。mixin 通过抽象成员
+/// 声明宿主契约（需要 students / courseName / log），任何满足
+/// 契约的类都能混入，与继承体系解耦。
+mixin HonorRoll {
+  List<Student> get students; // 宿主契约：GradeBook 恰好具备
+  String get courseName;
+  void log(String msg); // 与 Logger mixin 的 log 对应
 
   /// 前 [n] 名及格学生名单：spread 复制 + 级联排序 + where + take + map + toList，
   /// 5 个以上链式方法组合完成一组统计，不改动原列表。

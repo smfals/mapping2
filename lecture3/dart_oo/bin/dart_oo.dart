@@ -1,8 +1,8 @@
-import 'package:dart_oo/honor_roll.dart';
+import 'package:dart_oo/gradebook.dart';
 import 'package:dart_oo/student.dart';
 
 void main(List<String> arguments) {
-  final book = HonorRoll('Dart 程序设计', [
+  final book = GradeBook('Dart 程序设计', [
     Student('01', '李华', 92),
     Student('02', '王芳', 55),
     Student.fromJson({'id': '03', 'name': '张伟', 'score': 78}),

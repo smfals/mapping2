@@ -1,9 +1,10 @@
+import 'honor_roll.dart';
 import 'logger.dart';
 import 'student.dart';
 
 /// 课程成绩册：内部持有一个学生列表，构造时接收。
-/// 日志能力通过 mixin 混入，不占继承位。
-class GradeBook with Logger {
+/// 日志与光荣榜能力均通过 mixin 混入，不占继承位。
+class GradeBook with Logger, HonorRoll {
   final String courseName;
   final List<Student> _students;
 

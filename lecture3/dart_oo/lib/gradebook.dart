@@ -1,7 +1,9 @@
+import 'logger.dart';
 import 'student.dart';
 
 /// 课程成绩册：内部持有一个学生列表，构造时接收。
-class GradeBook {
+/// 日志能力通过 mixin 混入，不占继承位。
+class GradeBook with Logger {
   final String courseName;
   final List<Student> _students;
 
@@ -11,7 +13,10 @@ class GradeBook {
   /// 只读视图，避免外部绕过封装直接改列表。
   List<Student> get students => List.unmodifiable(_students);
 
-  void add(Student s) => _students.add(s);
+  void add(Student s) {
+    _students.add(s);
+    log('新增学生 ${s.name}');
+  }
 
   /// 平均分：fold 聚合求和再除以人数，无手写 for 循环。
   double get average =>

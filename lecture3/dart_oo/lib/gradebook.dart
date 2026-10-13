@@ -12,4 +12,22 @@ class GradeBook {
   List<Student> get students => List.unmodifiable(_students);
 
   void add(Student s) => _students.add(s);
+
+  /// 平均分：fold 聚合求和再除以人数，无手写 for 循环。
+  double get average =>
+      _students.fold<double>(0, (sum, s) => sum + s.score) / _students.length;
+
+  /// 最高分学生：reduce 两两比较取优。
+  Student get maxBy =>
+      _students.reduce((a, b) => a.score >= b.score ? a : b);
+
+  /// 及格人数：where 筛选后取长度。
+  int get countPassed => _students.where((s) => s.passed).length;
+
+  /// 按优良中差分档：fold 累积出 Map。
+  Map<String, List<Student>> groupByGrade() =>
+      _students.fold<Map<String, List<Student>>>({}, (map, s) {
+        map.putIfAbsent(s.gradeBand, () => []).add(s);
+        return map;
+      });
 }
